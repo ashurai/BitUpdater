@@ -46,7 +46,7 @@ func (Sy *Symbol) ValidateSymbols(list []string, wg *sync.WaitGroup, valChan cha
 				fmt.Printf("getting error from api read %s", err)
 			}
 			valChan <- sym 
-			mp[sym.BaseCurrency] = sym
+			mp[sym.ID] = sym
 		}(v)	
 	}
 }
@@ -59,7 +59,7 @@ func GetCurrencyByID(w http.ResponseWriter, r *http.Request) {
 	
 	symbol := mp[cr]
 	if symbol.BaseCurrency == "" {
-		log.Printf("Not a valid currency/symbol type")
+		log.Printf("Not a valid symbol type")
 		
 	}
 	u, err := url.Parse("https://api.hitbtc.com")
